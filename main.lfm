@@ -1,0 +1,77 @@
+object Form1: TForm1
+  Left = 196
+  Height = 457
+  Top = 112
+  Width = 629
+  Caption = '3D Graphics Engine Demo'
+  Color = clBtnFace
+  DesignTimePPI = 168
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Menu = MainMenu1
+  OnShow = FormShow
+  LCLVersion = '1.8.0.6'
+  object MainMenu1: TMainMenu
+    left = 40
+    top = 140
+    object SelectObject1: TMenuItem
+      Caption = 'Select Object'
+      object Cube1: TMenuItem
+        Caption = 'Cube'
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = Cube1Click
+      end
+      object Pyramid1: TMenuItem
+        Caption = 'Pyramid'
+        Checked = True
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = Pyramid1Click
+      end
+      object Epsilon1: TMenuItem
+        Caption = 'Epsilon'
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = Epsilon1Click
+      end
+    end
+    object SelectStyle1: TMenuItem
+      Caption = 'Select Style'
+      object Lines1: TMenuItem
+        Caption = 'Lines'
+        Checked = True
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = Lines1Click
+      end
+      object Surface1: TMenuItem
+        Caption = 'Surface'
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = Surface1Click
+      end
+      object Shadows1: TMenuItem
+        Caption = 'Shadows'
+        GroupIndex = 1
+        RadioItem = True
+        OnClick = Shadows1Click
+      end
+    end
+  end
+  object GrEn1: TGrEn
+    BackColor = clGreen
+    ZDistance = -70
+    RenderMode = rmWframe
+    left = 40
+    top = 40
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 5000
+    OnTimer = Timer1Timer
+    left = 40
+    top = 240
+  end
+end
