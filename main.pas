@@ -58,9 +58,8 @@ const
   PyrPoints: TPyrArray = (0, -20, 0, 20, 20, 20, -20, 20, 20,
     0, -20, 0, -20, 20, 20, -20, 20, -20,
     0, -20, 0, -20, 20, -20, 20, 20, -20,
-    0, -20, 0, 20, 20, -20, 20, 20, -20,
-    -20, 20, 20, 20, 20, 20, 20, 20, -20,
-    -20, 20, -20);
+    0, -20, 0, 20, 20, -20, 20, 20, -20, -20, 20, 20, 20, 20, 20,
+    20, 20, -20, -20, 20, -20);
   PyrFace: TPyrPolygones = (3, 3, 3, 3, 4);
 
 implementation
@@ -251,11 +250,9 @@ begin
 
   Epsilon := OffsetObject3D(MergeObject3D(
     InitVRectObject3D(0, 0, 0, 20, 5, -5, clBlue),
-    MergeObject3D(InitVRectObject3D(0,
-    5, 0, 5, 35, -5, clBlue), MergeObject3D(
-    InitVRectObject3D(5, 15, 0, 18, 20, -5, clBlue),
-    InitVRectObject3D(5, 30, 0, 20, 35, -5, clBlue)))),
-    -10, -35 / 2, -2);
+    MergeObject3D(InitVRectObject3D(0, 5, 0, 5, 35, -5, clBlue),
+    MergeObject3D(InitVRectObject3D(5, 15, 0, 18, 20, -5, clBlue),
+    InitVRectObject3D(5, 30, 0, 20, 35, -5, clBlue)))), -10, -35 / 2, -2);
   Epsilon.Color := clNavy;
   aThread := TDrawThread.Create;
 end;
