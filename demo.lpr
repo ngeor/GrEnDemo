@@ -2,11 +2,10 @@ program demo;
 
 {$MODE Delphi}
 
-uses
-  {$ifdef unix}
-    cthreads,
-    cmem, // the c memory manager is on some systems much faster for multi-threading
-  {$endif}
+uses {$ifdef unix}
+  cthreads,
+  cmem, // the c memory manager is on some systems much faster for multi-threading
+ {$endif}
   Forms,
   Interfaces,
   main in 'main.pas' {Form1},
