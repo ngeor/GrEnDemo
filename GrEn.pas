@@ -276,20 +276,16 @@ begin
   begin
     if Object3D.PolygoneStor[Y].PointsNum = 3 then
       Object3D.PolygoneStor[Y].AverageZ :=
-        (Object3D.PolygoneStor[Y].Point[0].Z +
-        Object3D.PolygoneStor[Y].Point[1].Z +
+        (Object3D.PolygoneStor[Y].Point[0].Z + Object3D.PolygoneStor[Y].Point[1].Z +
         Object3D.PolygoneStor[Y].Point[2].Z) / 3
     else if Object3D.PolygoneStor[Y].PointsNum = 4 then
       Object3D.PolygoneStor[Y].AverageZ :=
-        (Object3D.PolygoneStor[Y].Point[0].Z +
-        Object3D.PolygoneStor[Y].Point[1].Z +
-        Object3D.PolygoneStor[Y].Point[2].Z +
-        Object3D.PolygoneStor[Y].Point[3].Z) / 4;
+        (Object3D.PolygoneStor[Y].Point[0].Z + Object3D.PolygoneStor[Y].Point[1].Z +
+        Object3D.PolygoneStor[Y].Point[2].Z + Object3D.PolygoneStor[Y].Point[3].Z) / 4;
   end;
   for X := 0 to Object3D.PolygoneNum - 1 do
     for Y := 0 to Object3D.PolygoneNum - 2 do
-      if Object3D.PolygoneStor[Y].AverageZ > Object3D.PolygoneStor[Y +
-        1].AverageZ then
+      if Object3D.PolygoneStor[Y].AverageZ > Object3D.PolygoneStor[Y + 1].AverageZ then
       begin
         Temp := Object3D.PolygoneStor[Y];
         Object3D.PolygoneStor[Y] := Object3D.PolygoneStor[Y + 1];
