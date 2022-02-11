@@ -3,10 +3,7 @@ program demo;
 {$MODE Delphi}
 
 uses
- {$ifdef unix}
-  cthreads,
-  cmem, // the c memory manager is on some systems much faster for multi-threading
-   {$endif}
+  // commenting out because JCF formatter messes this up {$ifdef unix}cthreads, cmem,{$endif}
   Forms,
   Interfaces,
   main in 'main.pas' {Form1},
