@@ -10,10 +10,10 @@ uses
   Menus, ExtCtrls, GrEn;
 
 type
-  TPyrArray = array [0..47] of integer;
-  TPyrPolygones = array [0..4] of integer;
-  TCubeArray = array [0..71] of integer;
-  TCubePolygones = array [0..5] of integer;
+  TPyrArray = array [0..47] of Integer;
+  TPyrPolygones = array [0..4] of Integer;
+  TCubeArray = array [0..71] of Integer;
+  TCubePolygones = array [0..5] of Integer;
 
   TForm1 = class(TForm)
     MainMenu1: TMainMenu;
@@ -130,32 +130,32 @@ begin
   gren1.FlipBackPage;
 end;
 
-function Point3D(x, y, z: single): TPoint3D;
+function Point3D(x, y, z: Single): TPoint3D;
 begin
   Result.x := x;
   Result.y := y;
   Result.z := z;
 end;
 
-function OffsetPoint3D(const Pt: TPoint3D; dx, dy, dz: single): TPoint3D;
+function OffsetPoint3D(const Pt: TPoint3D; dx, dy, dz: Single): TPoint3D;
 begin
   Result.X := Pt.X + dx;
   Result.Y := pt.y + dy;
   Result.Z := pt.z + dz;
 end;
 
-function OffsetPolygon(const Poly: TPolygon; dx, dy, dz: single): TPolygon;
+function OffsetPolygon(const Poly: TPolygon; dx, dy, dz: Single): TPolygon;
 var
-  i: integer;
+  i: Integer;
 begin
   Result := Poly;
   for i := 0 to Poly.PointsNum - 1 do
     Result.Point[i] := OffsetPoint3D(Poly.Point[i], dx, dy, dz);
 end;
 
-function OffsetObject3D(const Obj: TObject3D; dx, dy, dz: single): TObject3D;
+function OffsetObject3D(const Obj: TObject3D; dx, dy, dz: Single): TObject3D;
 var
-  i: integer;
+  i: Integer;
 begin
   Result.Color := Obj.Color;
   Result.PolygoneNum := Obj.PolygoneNum;
@@ -163,7 +163,7 @@ begin
     Result.PolygoneStor[i] := OffsetPolygon(Obj.PolygoneStor[i], dx, dy, dz);
 end;
 
-function RectPolygonX(y1, z1, y2, z2, x: single): TPolygon;
+function RectPolygonX(y1, z1, y2, z2, x: Single): TPolygon;
 begin
   Result.PointsNum := 4;
   Result.Point[0] := Point3D(x, y1, z1);
@@ -172,7 +172,7 @@ begin
   Result.Point[3] := Point3D(x, y1, z2);
 end;
 
-function RectPolygonY(x1, z1, x2, z2, y: single): TPolygon;
+function RectPolygonY(x1, z1, x2, z2, y: Single): TPolygon;
 begin
   Result.PointsNum := 4;
   Result.Point[0] := Point3D(x1, y, z1);
@@ -181,7 +181,7 @@ begin
   Result.Point[3] := Point3D(x1, y, z2);
 end;
 
-function RectPolygonZ(x1, y1, x2, y2, z: single): TPolygon;
+function RectPolygonZ(x1, y1, x2, y2, z: Single): TPolygon;
 begin
   Result.PointsNum := 4;
   Result.Point[0] := Point3D(x1, y1, z);
@@ -191,9 +191,9 @@ begin
 end;
 
 
-function InitVRectObject3D(x1, y1, z1, x2, y2, z2: integer; color: TColor): TObject3D;
+function InitVRectObject3D(x1, y1, z1, x2, y2, z2: Integer; color: TColor): TObject3D;
 var
-  i: integer;
+  i: Integer;
 begin
   Result.PolygoneNum := 6;
   Result.Color := color;
@@ -209,7 +209,7 @@ end;
 
 function MergeObject3D(const a, b: TObject3D): TObject3D;
 var
-  i: integer;
+  i: Integer;
 begin
   Result := a;
   Result.PolygoneNum := a.PolygoneNum + b.PolygoneNum;
@@ -219,7 +219,7 @@ end;
 
 procedure TForm1.FormShow(Sender: TObject);
 var
-  LCount, PCount, ACount: integer;
+  LCount, PCount, ACount: Integer;
 begin
   Pyramid.PolygoneNum := 5;
   Pyramid.Color := clMaroon;
