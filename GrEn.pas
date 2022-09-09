@@ -12,11 +12,11 @@ type
   TRMode = (rmWframe, rmSld, rmSldShade);
 
   TXBt = record
-    StartX, EndX: integer;
+    StartX, EndX: Integer;
   end;
 
   TPoint3D = record
-    X, Y, Z: single;
+    X, Y, Z: Single;
   end;
 
   TLine3D = record
@@ -25,9 +25,9 @@ type
 
   TPolygon = record
     Point: array [0..3] of TPoint3D;
-    PointsNum: integer;
-    Visible: boolean;
-    AverageZ: single;
+    PointsNum: Integer;
+    Visible: Boolean;
+    AverageZ: Single;
     PolygoneCol: TColor;
   end;
 
@@ -35,7 +35,7 @@ type
 
   TObject3D = record
     PolygoneStor: array [0..49] of TPolygon;
-    PolygoneNum: integer;
+    PolygoneNum: Integer;
     Color: TColor;
   end;
 
@@ -45,28 +45,28 @@ type
     FBBuff: TBitmap;
     FFBuff: TCanvas;
     FColor: TColor;
-    ViewWidth, ViewHeight: integer;
+    ViewWidth, ViewHeight: Integer;
     FWinHand: THandle;
     FRenMd: TRMode;
-    HScrWidth, HScrHeight, ViewingDistance: integer;
-    FDistance: integer;
+    HScrWidth, HScrHeight, ViewingDistance: Integer;
+    FDistance: Integer;
     YBt: array [0..479] of TXBt;
     ViewPoint, LS: TPoint3D;
-    LightStrength: single;
-    AmL: integer;
-    procedure DrawLine3D(X1, Y1, Z1, X2, Y2, Z2: single);
-    procedure DrawLine2D(X1, Y1, X2, Y2: integer);
-    procedure DrawSolidLine2D(X1, Y1, X2, Y2: integer);
-    procedure SetDistance(Distance: integer);
+    LightStrength: Single;
+    AmL: Integer;
+    procedure DrawLine3D(X1, Y1, Z1, X2, Y2, Z2: Single);
+    procedure DrawLine2D(X1, Y1, X2, Y2: Integer);
+    procedure DrawSolidLine2D(X1, Y1, X2, Y2: Integer);
+    procedure SetDistance(Distance: Integer);
     procedure GVec(var EndPoint, StartPoint, Vector: TPoint3D);
     procedure CrProd(var U, V, Normal: TPoint3D);
     procedure GetNormal(var P1, P2, P3, normal: TPoint3D);
-    function VMgn(var Normal: TPoint3D): single;
-    function DProd(var U, V: TPoint3D): single;
+    function VMgn(var Normal: TPoint3D): Single;
+    function DProd(var U, V: TPoint3D): Single;
     procedure Rmf(var AOb: TObject3D);
     procedure ClearYBt;
     procedure RenderYBt;
-    procedure DrHorL(Y, X1, X2: integer);
+    procedure DrHorL(Y, X1, X2: Integer);
     procedure OrderZ(var Object3D: TObject3D);
   public
     constructor Create(AOwner: TComponent); override;
@@ -74,12 +74,12 @@ type
     procedure ClearBackPage;
     procedure RenderNow(var Object3D: TObject3D);
     procedure FlipBackPage;
-    procedure Rotate(X, Y, Z, Angle: single; var Object3D: TObject3D);
+    procedure Rotate(X, Y, Z, Angle: Single; var Object3D: TObject3D);
     procedure ChObjCol(var Object3D: TObject3D; Color: TColor);
     procedure SLSPos(Position, Direction: TPoint3D);
   published
     property BackColor: TColor read FColor write FColor;
-    property ZDistance: integer read FDistance write SetDistance default -50;
+    property ZDistance: Integer read FDistance write SetDistance default -50;
     property RenderMode: TRMode read FRenMd write FRenMd;
   end;
 
@@ -92,9 +92,9 @@ begin
   RegisterComponents('Custom', [TGrEn]);
 end;
 
-procedure TGrEn.DrawLine3D(X1, Y1, Z1, X2, Y2, Z2: single);
+procedure TGrEn.DrawLine3D(X1, Y1, Z1, X2, Y2, Z2: Single);
 var
-  ScreenX1, ScreenY1, ScreenX2, ScreenY2: integer;
+  ScreenX1, ScreenY1, ScreenX2, ScreenY2: Integer;
 begin
   ScreenX1 := HScrWidth + Round(X1 * ViewingDistance / (Z1 + ZDistance));
   ScreenY1 := Round(HScrHeight - Y1 * ViewingDistance / (Z1 + ZDistance));
@@ -107,16 +107,16 @@ begin
   end;
 end;
 
-procedure TGrEn.DrawLine2D(X1, Y1, X2, Y2: integer);
+procedure TGrEn.DrawLine2D(X1, Y1, X2, Y2: Integer);
 begin
   FBBuff.Canvas.PenPos := Point(X1, Y1);
   FBBuff.Canvas.LineTo(X2, Y2);
 end;
 
-procedure TGrEn.DrawSolidLine2D(X1, Y1, X2, Y2: integer);
+procedure TGrEn.DrawSolidLine2D(X1, Y1, X2, Y2: Integer);
 var
-  CurrentX, XIncr: single;
-  Y, Temp, Length: integer;
+  CurrentX, XIncr: Single;
+  Y, Temp, Length: Integer;
 begin
   if Y1 = Y2 then
     Exit;
@@ -150,7 +150,7 @@ begin
   end;
 end;
 
-procedure TGrEn.SetDistance(Distance: integer);
+procedure TGrEn.SetDistance(Distance: Integer);
 begin
   FDistance := Distance;
 end;
@@ -178,9 +178,9 @@ begin
   CrProd(U, V, Normal);
 end;
 
-function TGrEn.VMgn(var Normal: TPoint3D): single;
+function TGrEn.VMgn(var Normal: TPoint3D): Single;
 var
-  X1: single;
+  X1: Single;
 begin
   X1 := Sqrt(Sqr(Normal.X) + Sqr(Normal.Y) + Sqr(Normal.Z));
   if X1 = 0 then
@@ -188,17 +188,17 @@ begin
   Result := X1;
 end;
 
-function TGrEn.DProd(var U, V: TPoint3D): single;
+function TGrEn.DProd(var U, V: TPoint3D): Single;
 begin
   Result := ((U.X * V.X) + (U.Y * V.Y) + (U.Z * V.Z));
 end;
 
 procedure TGrEn.Rmf(var AOb: TObject3D);
 var
-  CurPl: longint;
-  Dp, Inten: single;
+  CurPl: Longint;
+  Dp, Inten: Single;
   Sight, Normal: TPoint3D;
-  R, G, B: longint;
+  R, G, B: Longint;
 begin
   for CurPl := 0 to AOb.PolygoneNum - 1 do
   begin
@@ -243,7 +243,7 @@ end;
 
 procedure TGrEn.ClearYBt;
 var
-  X: integer;
+  X: Integer;
 begin
   for X := 0 to 479 do
     YBt[X].StartX := -16000;
@@ -251,7 +251,7 @@ end;
 
 procedure TGrEn.RenderYBt;
 var
-  Y: integer;
+  Y: Integer;
 begin
   for Y := 0 to 479 do
   begin
@@ -261,7 +261,7 @@ begin
   end;
 end;
 
-procedure TGrEn.DrHorL(Y, X1, X2: integer);
+procedure TGrEn.DrHorL(Y, X1, X2: Integer);
 begin
   FBBuff.Canvas.PenPos := Point(X1, Y);
   FBBuff.Canvas.LineTo(X2, Y);
@@ -269,7 +269,7 @@ end;
 
 procedure TGrEn.OrderZ(var Object3D: TObject3D);
 var
-  X, Y: integer;
+  X, Y: Integer;
   Temp: TPolygon;
 begin
   for Y := 0 to Object3D.PolygoneNum - 1 do
@@ -340,7 +340,7 @@ end;
 
 procedure TGrEn.RenderNow(var Object3D: TObject3D);
 var
-  X, I: integer;
+  X, I: Integer;
 begin
   case RenderMode of
     rmWframe:
@@ -415,10 +415,10 @@ begin
   FFBuff.CopyRect(ARect, FBBuff.Canvas, ARect);
 end;
 
-procedure TGrEn.Rotate(X, Y, Z, Angle: single; var Object3D: TObject3D);
+procedure TGrEn.Rotate(X, Y, Z, Angle: Single; var Object3D: TObject3D);
 var
-  P, I: integer;
-  NewX, NewY, NewZ: single;
+  P, I: Integer;
+  NewX, NewY, NewZ: Single;
 begin
   for P := 0 to Object3D.PolygoneNum - 1 do
     with Object3D.PolygoneStor[P] do
@@ -458,7 +458,7 @@ end;
 procedure TGrEn.SLSPos(Position, Direction: TPoint3D);
 var
   Result: TPoint3D;
-  Length: single;
+  Length: Single;
 begin
   GVec(Position, Direction, Result);
   Length := VMgn(Result);
